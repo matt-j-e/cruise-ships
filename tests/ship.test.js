@@ -1,3 +1,4 @@
+/* globals describe it expect */
 const Ship = require("../src/ship.js");
 
 function shipInit() {
@@ -8,11 +9,18 @@ function shipInit() {
 beforeEach(() => ship = shipInit());
 
 describe("Ship object", () => {
-    it("is an object", () => {
+    it("can be instantiated", () => {
         expect(ship).toBeInstanceOf(Object);
     });
 
     it("has a startPort property", () => {
-        expect(ship.startPort).toBe("Dover");
+        expect(ship.currentPort).toBe("Dover");
+    });
+});
+
+describe("setSail", () => {
+    it("can set sail from a port", () => {
+        ship.setSail();
+        expect(ship.currentPort).toBeFalsy();
     });
 });
