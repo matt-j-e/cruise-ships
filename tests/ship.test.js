@@ -1,8 +1,11 @@
 /* globals describe it expect */
-const Ship = require("../src/ship.js");
+const {
+    Ship,
+    Port
+} = require("../src/ship.js");
 
 function shipInit() {
-    const port = "Dover";
+    const port = new Port("Dover");
     const ship = new Ship(port);
     return ship;
 }
@@ -14,7 +17,7 @@ describe("Ship object", () => {
     });
 
     it("has a startPort property", () => {
-        expect(ship.currentPort).toBe("Dover");
+        expect(ship.currentPort).toBeTruthy();
     });
 });
 
@@ -22,5 +25,13 @@ describe("setSail", () => {
     it("can set sail from a port", () => {
         ship.setSail();
         expect(ship.currentPort).toBeFalsy();
+    });
+});
+
+describe("dock", () => {
+    it("can dock at a port", () => {
+        ship.setSail();
+        const newPort = new Port("Nice");
+        ship.dock(newPort);
     });
 });
