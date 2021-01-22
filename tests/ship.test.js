@@ -19,7 +19,7 @@ describe("Ship object", () => {
     });
 
     it("has a currentPort property", () => {
-        expect(ship.currentPort.name).toBe("Dover");
+        expect(ship.currentPort).toBe(dover);
     });
 
     it("has a previousPort property set to null", () => {
@@ -31,15 +31,20 @@ describe("setSail", () => {
     it("can set sail from a port", () => {
         ship.setSail();
         expect(ship.currentPort).toBeFalsy();
-        expect(ship.previousPort.name).toBe("Dover");
+        expect(ship.previousPort).toBe(dover);
+    });
+
+    it("throws an error when trying to set sail for an undefined port", () => {
+        ship.currentPort = calais;
+        expect(() => ship.setSail()).toThrow("This is the end of the itinerary");
     });
 });
 
 describe("dock", () => {
     it("can dock at a different port", () => {
         ship.setSail();
-        // const newPort = new Port("Nice");
         ship.dock();
-        expect(ship.currentPort).toBe(itinerary.ports[1]);
+        // expect(ship.currentPort).toBe(itinerary.ports[1]);
+        expect(ship.currentPort).toBe(calais);
     });
 });
