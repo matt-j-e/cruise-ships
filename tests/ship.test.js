@@ -22,6 +22,10 @@ describe("Ship object", () => {
         expect(ship.currentPort).toBe(dover);
     });
 
+    it("gets added to currentPort on instantiation", () => {
+        expect(ship.currentPort.ships).toContain(ship);
+    });
+
     it("has a previousPort property set to null", () => {
         expect(ship.previousPort).toBeNull();
     });
@@ -32,6 +36,7 @@ describe("setSail", () => {
         ship.setSail();
         expect(ship.currentPort).toBeFalsy();
         expect(ship.previousPort).toBe(dover);
+        expect(ship.previousPort.ships).not.toContain(ship);
     });
 
     it("throws an error when trying to set sail for an undefined port", () => {
@@ -44,7 +49,7 @@ describe("dock", () => {
     it("can dock at a different port", () => {
         ship.setSail();
         ship.dock();
-        // expect(ship.currentPort).toBe(itinerary.ports[1]);
         expect(ship.currentPort).toBe(calais);
+        expect(ship.currentPort.ships).toContain(ship);
     });
 });

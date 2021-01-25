@@ -4,6 +4,7 @@ class Ship {
         // this.portCount = 0;
         this.finalPortIndex = itinerary.ports.length - 1;
         this.currentPort = this.itinerary.ports[0];
+        this.currentPort.addShip(this);
         this.previousPort = null;
     }
 
@@ -14,6 +15,7 @@ class Ship {
         }
         this.previousPort = this.currentPort;
         this.currentPort = null;
+        this.previousPort.removeShip(this);
     }
 
     dock() {
@@ -21,6 +23,7 @@ class Ship {
         const ports = this.itinerary.ports;
         const prevPortIndex = ports.indexOf(this.previousPort);
         this.currentPort = ports[prevPortIndex + 1];
+        this.currentPort.addShip(this);
     }
 }
 
