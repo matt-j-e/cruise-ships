@@ -1,21 +1,13 @@
 const Ship = require("../src/ship.js");
 
-const dover = { name: "Dover", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
-const calais = { name: "Calais", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
-const itinerary = { ports: [dover, calais] };
+let dover, calais, itinerary, ship;
 
-function shipInit() {
-    const ship = new Ship(itinerary);
-    return ship;
-}
-beforeEach(() => ship = shipInit());
-// beforeEach(() => {
-//     const dover = new Port("Dover");
-//     const calais = new Port("Calais");
-//     const itinerary = new Itinerary([dover, calais]);
-//     const ship = new Ship(itinerary);
-//     console.log(ship);
-// });
+beforeEach(() => {
+    dover = { name: "Dover", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
+    calais = { name: "Calais", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
+    itinerary = { ports: [dover, calais] };
+    ship = new Ship(itinerary);
+});
 
 describe("Ship object", () => {
     
