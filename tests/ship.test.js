@@ -1,10 +1,8 @@
 const Ship = require("../src/ship.js");
-const Port = require("../src/port.js");
-const Itinerary = require("../src/itinerary.js");
 
-const dover = { name: "Dover", ships: [], addShip: jest.fn(), removeShip: jest.fn() }
-const calais = { name: "Calais", ships: [], addShip: jest.fn(), removeShip: jest.fn() }
-const itinerary = new Itinerary([dover, calais]);
+const dover = { name: "Dover", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
+const calais = { name: "Calais", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
+const itinerary = { ports: [dover, calais] };
 
 function shipInit() {
     const ship = new Ship(itinerary);
