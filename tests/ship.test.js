@@ -2,8 +2,8 @@ const Ship = require("../src/ship.js");
 const Port = require("../src/port.js");
 const Itinerary = require("../src/itinerary.js");
 
-const dover = new Port("Dover");
-const calais = new Port("Calais");
+const dover = { name: "Dover", ships: [], addShip: jest.fn(), removeShip: jest.fn() }
+const calais = { name: "Calais", ships: [], addShip: jest.fn(), removeShip: jest.fn() }
 const itinerary = new Itinerary([dover, calais]);
 
 function shipInit() {
@@ -30,7 +30,7 @@ describe("Ship object", () => {
     });
 
     it("gets added to currentPort on instantiation", () => {
-        expect(ship.currentPort.ships).toContain(ship);
+        expect(dover.addShip).toHaveBeenCalledWith(ship);
     });
 
     it("has a previousPort property set to null", () => {
@@ -43,7 +43,7 @@ describe("setSail", () => {
         ship.setSail();
         expect(ship.currentPort).toBeFalsy();
         expect(ship.previousPort).toBe(dover);
-        expect(ship.previousPort.ships).not.toContain(ship);
+        expect(dover.removeShip).toHaveBeenCalledWith(ship);
     });
 
     it("throws an error when trying to set sail for an undefined port", () => {
@@ -57,6 +57,6 @@ describe("dock", () => {
         ship.setSail();
         ship.dock();
         expect(ship.currentPort).toBe(calais);
-        expect(ship.currentPort.ships).toContain(ship);
+        expect(calais.addShip).toHaveBeenCalledWith(ship);
     });
 });
