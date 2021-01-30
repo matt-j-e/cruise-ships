@@ -1,4 +1,3 @@
-/* globals describe it expect */
 const Ship = require("../src/ship.js");
 const Port = require("../src/port.js");
 const Itinerary = require("../src/itinerary.js");
@@ -12,8 +11,16 @@ function shipInit() {
     return ship;
 }
 beforeEach(() => ship = shipInit());
+// beforeEach(() => {
+//     const dover = new Port("Dover");
+//     const calais = new Port("Calais");
+//     const itinerary = new Itinerary([dover, calais]);
+//     const ship = new Ship(itinerary);
+//     console.log(ship);
+// });
 
 describe("Ship object", () => {
+    
     it("can be instantiated", () => {
         expect(ship).toBeInstanceOf(Object);
     });

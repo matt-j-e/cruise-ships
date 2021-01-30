@@ -15,9 +15,8 @@ describe("Port", () => {
 describe("addShip", () =>{
     it("adds a ship to the Port's ships array", () => {
         const dover = new Port("Dover");
-        const ship = {};
+        const ship = jest.fn();
         dover.addShip(ship);
-        // expect(dover.ships[0]).toEqual(ship);
         expect(dover.ships).toContain(ship);
     });
 });
@@ -25,8 +24,8 @@ describe("addShip", () =>{
 describe("removeShip", () => {
     it("removes a ship from the Port's ships array", () =>{
         const dover = new Port("Dover");
-        const pequod = {};
-        const hispaniola = {};
+        const pequod = jest.fn();
+        const hispaniola = jest.fn();
         dover.addShip(pequod);
         dover.addShip(hispaniola);
         dover.removeShip(pequod);
