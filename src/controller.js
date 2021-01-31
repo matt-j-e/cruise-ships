@@ -1,5 +1,10 @@
-function Controller() {
+function Controller(ship) {
     this.initialiseSea();
+    this.ship = ship;
+
+    document.querySelector("#sailbutton").addEventListener("click", () => {
+        this.setSail();
+    });
 }
 
 Controller.prototype = {
@@ -19,11 +24,11 @@ Controller.prototype = {
         }, 1000);
     },
 
-    renderPorts(ports) {
+    renderPorts() {
         const portsElement = document.querySelector("#ports");
         portsElement.style.width = "0px";
         let width = 0;
-        ports.forEach((port, index) => {
+        this.ship.itinerary.ports.forEach((port, index) => {
             width += 256;
             portsElement.style.width = `${width}px`;
             const portElement = document.createElement("div");
@@ -34,12 +39,33 @@ Controller.prototype = {
         });
     },
 
-    renderShip(ship) {
-        const portIndex = ship.itinerary.ports.indexOf(ship.currentPort);
+    renderShip() {
+        const portIndex = this.ship.itinerary.ports.indexOf(ship.currentPort);
         const currentPortElement = document.querySelector(`[data-port-index="${portIndex}"]`);
         const shipElement = document.querySelector("#ship");
         shipElement.style.top = currentPortElement.offsetTop + currentPortElement.offsetHeight + 'px';
         shipElement.style.left = currentPortElement.offsetLeft - (shipElement.offsetWidth / 4) + 'px';
+    },
+
+    setSail() {
+        const currentPortIndex = this.ship.itinerary.ports.indexOf(ship.currentPort);
+        const shipElement = document.querySelector("#ship");
+        if (currentPortIndex === this.ship.finalPortIndex) {
+            window.alert("You are at the end of your cruise");
+            return;
+        }
+        const nextPortElement = document.querySelector(`[data-port-index="${currentPortIndex + 1}"]`);
+        const nextLeft = nextPortElement.offsetLeft - (shipElement.offsetWidth / 4);
+        this.ship.setSail();
+        const sailing = setInterval(() => {
+            if (parseInt(shipElement.style.left) === nextLeft) {
+                this.ship.dock();
+                clearInterval(sailing);
+                return;
+            } else {
+                shipElement.style.left = parseInt(shipElement.style.left) + 1 + "px";
+            }
+        }, 5);
     }
 
 }

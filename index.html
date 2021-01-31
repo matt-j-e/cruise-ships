@@ -12,21 +12,23 @@
   <div id="ports"></div>
   <div id="ship"></div>
 </div>
+<button id="sailbutton">Set Sail!</button>
+
 <script src="src/controller.js"></script>
 <script src="src/port.js"></script>
 <script src="src/itinerary.js"></script>
 <script src="src/ship.js"></script>
 <script>
-  const controller = new Controller();
   const itinerary = new Itinerary([
       new Port("Dover"),
       new Port("Calais"),
       new Port("Marseille"),
       new Port("Nice")
     ]);
-  controller.renderPorts(itinerary.ports);
   const ship = new Ship(itinerary);
-  controller.renderShip(ship);
+  const controller = new Controller(ship);
+  controller.renderPorts();
+  controller.renderShip();
 </script>
 </body>
 </html>
