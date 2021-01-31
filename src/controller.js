@@ -26,7 +26,8 @@ Controller.prototype.renderPorts = function(ports) {
         portsElement.style.width = `${width}px`;
         const portElement = document.createElement("div");
         portElement.classList.add("port");
-        portElement.dataset.index = index;
+        portElement.dataset.portName = port.name;
+        portElement.dataset.portIndex = index;
         portsElement.append(portElement);
     });
 }
