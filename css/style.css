@@ -12,6 +12,18 @@ body {
   align-items: center;
 }
 
+#headsup {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: white;
+  padding: 15px;
+}
+
+#headsup p {
+  text-align: right;
+}
+
 #viewport {
   background-image: url("../images/water0.png");
   width: 640px;
@@ -58,7 +70,7 @@ body {
   20% {
     opacity: 1;
   }
-  80% {
+  75% {
     opacity: 1;
   }
   100% {

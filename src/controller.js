@@ -2,6 +2,12 @@ function Controller(ship) {
     this.initialiseSea();
     this.ship = ship;
 
+    const currentPort = this.ship.itinerary.ports[0].name;
+    const nextPort = this.ship.itinerary.ports[1].name;
+    const currentMessage = `Current Port: ${currentPort}`;
+    const nextMessage = `Next Port: ${nextPort}`;
+    this.renderHeadsUp(currentMessage, nextMessage);
+
     document.querySelector("#sailbutton").addEventListener("click", () => {
         this.setSail();
     });
@@ -56,12 +62,24 @@ Controller.prototype = {
         const nextPortElement = document.querySelector(`[data-port-index="${currentPortIndex + 1}"]`);
         const nextLeft = nextPortElement.offsetLeft - (shipElement.offsetWidth / 4);
         this.renderMessage(`Now departing ${this.ship.currentPort.name}`);
+        const currentMessage = `Last Port: ${this.ship.currentPort.name}`;
+        const nextMessage = `Next Port: ${this.ship.itinerary.ports[currentPortIndex + 1].name}`;
+        this.renderHeadsUp(currentMessage, nextMessage);
         this.ship.setSail();
         const sailing = setInterval(() => {
             if (parseInt(shipElement.style.left) === nextLeft) {
                 this.ship.dock();
                 clearInterval(sailing);
                 this.renderMessage(`Arrived at ${this.ship.currentPort.name}`);
+                const currentMessage = `Current Port: ${this.ship.currentPort.name}`;
+                const currentPortIndex = this.ship.itinerary.ports.indexOf(this.ship.currentPort);
+                let nextMessage;
+                if (currentPortIndex === this.ship.finalPortIndex) {
+                    nextMessage = "Next Port: n/a";
+                } else {
+                    nextMessage = `Next Port: ${this.ship.itinerary.ports[currentPortIndex + 1].name}`;
+                }
+                this.renderHeadsUp(currentMessage, nextMessage);
                 return;
             } else {
                 shipElement.style.left = parseInt(shipElement.style.left) + 1 + "px";
@@ -80,6 +98,13 @@ Controller.prototype = {
             clearInterval(removeMsg);
         }, 2000);
         
+    },
+
+    renderHeadsUp(currentMsg, nextMsg) {
+        const headsUpCurrentElement = document.querySelector(".current");
+        const headsUpNextElement = document.querySelector(".next");
+        headsUpCurrentElement.innerHTML = currentMsg;
+        headsUpNextElement.innerHTML = nextMsg;
     }
 
 }
