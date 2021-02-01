@@ -51,6 +51,21 @@ body {
   cursor: pointer;
 }
 
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 #message {
   position: absolute;
   bottom: 0;
@@ -58,4 +73,5 @@ body {
   line-height: 2;
   background-color: white;
   text-align: center;
+  animation: fade 2s;
 }
