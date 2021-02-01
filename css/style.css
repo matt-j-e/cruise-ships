@@ -1,4 +1,5 @@
 html {
+  font-family: 'Cutive Mono', monospace;
   background-color: black;
   height: 100%;
 }
@@ -48,4 +49,13 @@ body {
   font-size: 120%;
   font-weight: 700;
   cursor: pointer;
+}
+
+#message {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  line-height: 2;
+  background-color: white;
+  text-align: center;
 }

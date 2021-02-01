@@ -20,7 +20,6 @@ Controller.prototype = {
             } else {
                 viewport.style.backgroundImage = bgImg0;
             }
-            // viewport.style.backgroundImage = viewport.style.backgroundImage === bgImg0 ? viewport.style.backgroundImage = bgImg1 : viewport.style.backgroundImage = bgImg0;
         }, 1000);
     },
 
@@ -48,24 +47,39 @@ Controller.prototype = {
     },
 
     setSail() {
-        const currentPortIndex = this.ship.itinerary.ports.indexOf(ship.currentPort);
-        const shipElement = document.querySelector("#ship");
+        const currentPortIndex = this.ship.itinerary.ports.indexOf(this.ship.currentPort);
         if (currentPortIndex === this.ship.finalPortIndex) {
-            window.alert("You are at the end of your cruise");
+            this.renderMessage("You are at the end of your cruise");
             return;
         }
+        const shipElement = document.querySelector("#ship");
         const nextPortElement = document.querySelector(`[data-port-index="${currentPortIndex + 1}"]`);
         const nextLeft = nextPortElement.offsetLeft - (shipElement.offsetWidth / 4);
+        this.renderMessage(`Now departing ${this.ship.currentPort.name}`);
         this.ship.setSail();
         const sailing = setInterval(() => {
             if (parseInt(shipElement.style.left) === nextLeft) {
                 this.ship.dock();
                 clearInterval(sailing);
+                this.renderMessage(`Arrived at ${this.ship.currentPort.name}`);
                 return;
             } else {
                 shipElement.style.left = parseInt(shipElement.style.left) + 1 + "px";
             }
-        }, 5);
+        }, 20);
+    },
+
+    renderMessage(msg) {
+        const message = document.createElement("div");
+        message.setAttribute("id", "message");
+        message.innerHTML = msg;
+        const viewport = document.querySelector("#viewport");
+        viewport.appendChild(message);
+        const removeMsg = setInterval(() => {
+            viewport.removeChild(message);
+            clearInterval(removeMsg);
+        }, 2000);
+        
     }
 
 }
