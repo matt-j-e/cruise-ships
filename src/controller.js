@@ -75,7 +75,7 @@ Controller.prototype = {
                 const currentPortIndex = this.ship.itinerary.ports.indexOf(this.ship.currentPort);
                 let nextMessage;
                 if (currentPortIndex === this.ship.finalPortIndex) {
-                    nextMessage = "Next Port: n/a";
+                    nextMessage = "You've reached the end of the line.";
                 } else {
                     nextMessage = `Next Port: ${this.ship.itinerary.ports[currentPortIndex + 1].name}`;
                 }

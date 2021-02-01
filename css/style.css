@@ -26,7 +26,7 @@ body {
 
 #viewport {
   background-image: url("../images/water0.png");
-  width: 640px;
+  width: 60%;
   height: 256px;
   position: relative;
   overflow-x: auto;
